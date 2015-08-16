@@ -13,13 +13,13 @@
     <script src="js/lib.js"></script>
 
   </head>
-  <body>
+  <body style="padding: 10px">
 
     <a class="btn btn-default" href="#manage">Manage</a>
-    <a class="btn btn-default" href="#use">Use</a>
+    <a class="btn btn-default" href="#use">Access</a>
 
     <div id="manage" class="page">
-      <h2 class="page-header">Create New Vault</h2>
+      <h4 class="page-header">Create New Vault</h4>
 
       <div class="form-horizontal">
         <div class="form-group">
@@ -27,6 +27,13 @@
           <div class="col-sm-7">
             <input type="file" class="form-control" id="new-location" placeholder="File Location" webkitdirectory>
             <div class="help-text">Select where the vault should be stored</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="new-password" class="col-sm-3 control-label">Vault Name</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" id="new-filename" placeholder="File Name" value="pass.vault">
           </div>
         </div>
 
@@ -44,15 +51,20 @@
             <input type="password" class="form-control" id="new-password-verify" placeholder="Vault Password">
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 control-label"></label>
+          <div class="col-sm-7">
+            <button id="create-btn" class="btn btn-primary"><i class="fa fa-plus"></i> Create Vault</button>
+          </div>
+        </div>
       </div>
 
       <div id="new-message"></div>
-
-      <button id="create-btn" class="btn btn-primary"><i class="fa fa-plus"></i> Create Vault</button>
     </div>
 
     <div id="use" class="page">
-      <h2 class="page-header">Use Vault</h2>
+      <h4 class="page-header">Access Vault</h4>
 
       <div class="form-horizontal">
         <div class="form-group">
