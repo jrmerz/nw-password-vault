@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NW Password Vault</title>
+
+    <link rel="stylesheet" href="bower_components/bootswatch-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootswatch-dist/js/bootstrap.js"></script>
+
+    <script src="js/node_modules.js"></script>
+    <script src="js/lib.js"></script>
+
+  </head>
+  <body>
+
+    <a class="btn btn-default" href="#manage">Manage</a>
+    <a class="btn btn-default" href="#use">Use</a>
+
+    <div id="manage" class="page">
+      <h2 class="page-header">Create New Vault</h2>
+
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label for="new-password" class="col-sm-3 control-label">Vault Location</label>
+          <div class="col-sm-7">
+            <input type="file" class="form-control" id="new-location" placeholder="File Location" webkitdirectory>
+            <div class="help-text">Select where the vault should be stored</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="new-password" class="col-sm-3 control-label">Password</label>
+          <div class="col-sm-7">
+            <input type="password" class="form-control" id="new-password" placeholder="Vault Password">
+            <div class="help-text">Password used to encrypt your vault</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="new-password-verify" class="col-sm-3 control-label">Verify Password</label>
+          <div class="col-sm-7">
+            <input type="password" class="form-control" id="new-password-verify" placeholder="Vault Password">
+          </div>
+        </div>
+      </div>
+
+      <div id="new-message"></div>
+
+      <button id="create-btn" class="btn btn-primary"><i class="fa fa-plus"></i> Create Vault</button>
+    </div>
+
+    <div id="use" class="page">
+      <h2 class="page-header">Use Vault</h2>
+
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label for="vault-select" class="col-sm-3 control-label">Select Vault</label>
+          <div class="col-sm-7">
+            <select id="vault-select" class="form-control"></select>
+            <button id="unlock-show-btn" class="btn btn-warning"><i class="fa fa-unlock-alt"></i> Unlock</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-horizontal" id="find-password">
+        <div class="form-group">
+          <label for="find-password-input" class="col-sm-3 control-label">Find</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" id="find-password-input" placeholder="Search text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label"></label>
+          <div class="col-sm-7">
+            <a class="btn btn-primary" id="add-entry-btn"><i class="fa fa-plus"></i> Add Entry</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="use-message"></div>
+      <div id="use-results"></div>
+
+    </div>
+
+    <div class="modal fade" id="unlock-popup">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Unlock Vault</h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">File</label>
+                <div class="col-sm-10" id="unlock-popup-filename"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="unlock-popup-password" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="unlock-popup-password" placeholder="Vault Password">
+                  <div class="help-text">Password used to encrypt your vault</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="vault-popup-message"></div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-warning" id="unlock-btn"><i class="fa fa-unlock-alt"></i> Unlock</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="edit-entry-popup">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="edit-entry-popup-title"></h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label for="edit-entry-password-name" class="col-sm-3 control-label">Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="edit-entry-password-name" placeholder="Entry Name">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-entry-description" class="col-sm-3 control-label">Description</label>
+                <div class="col-sm-9">
+                  <textarea class="form-control" id="edit-entry-password-description" placeholder="Entry Description"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-entry-password" class="col-sm-3 control-label">Password</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" id="edit-entry-password" placeholder="Password">
+                  <input type="password" class="form-control" id="edit-entry-password-verify" placeholder="Verify Password">
+                  <div id="edit-entry-password-msg"></div>
+                </div>
+              </div>
+
+              <div id="edit-entry-other-fields"></div>
+            </div>
+
+            <a class="btn btn-default" id="edit-entry-add-field-btn"><i class="fa fa-plus"></i> Add Field</a>
+
+            <div id="edit-entry-message"></div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="edit-entry-save-btn"><i class="fa fa-save"></i> Save</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+  </body>
+</html>

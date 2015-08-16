@@ -1,0 +1,19 @@
+{
+  "name": "nw-password-vault",
+  "version": "0.0.1",
+  "authors": [
+    "Justin Merz <jrmerz@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootswatch-dist": "paper",
+    "font-awesome": "~4.4.0"
+  }
+}
