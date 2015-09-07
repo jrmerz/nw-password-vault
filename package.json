@@ -4,7 +4,9 @@
   "description": "node-webkit password vault",
   "main": "Gruntfile.js",
   "dependencies": {
-    "nw": "^0.12.3"
+    "grunt-node-webkit-builder": "^1.0.2",
+    "nw": "^0.12.3",
+    "nw-builder": "^2.0.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

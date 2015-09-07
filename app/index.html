@@ -13,11 +13,20 @@
     <script src="js/node_modules.js"></script>
     <script src="js/lib.js"></script>
 
-  </head>
-  <body style="padding: 10px">
+    <link rel="import" href="require.html" />
 
-    <a class="btn btn-default" href="#manage">Manage</a>
-    <a class="btn btn-default" href="#use">Access</a>
+    <style>
+      .page {
+        padding: 15px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+      <li role="presentation" class="active"><a href="#use" aria-controls="home" role="tab">Use</a></li>
+      <li role="presentation"><a href="#manage" aria-controls="home" role="tab">Manage</a></li>
+    </ul>
 
     <div id="manage" class="page">
       <h4 class="page-header">Create New Vault</h4>
@@ -62,6 +71,10 @@
       </div>
 
       <div id="new-message"></div>
+
+
+      <app-import-vault></app-import-vault>
+
     </div>
 
     <div id="use" class="page">
@@ -153,6 +166,13 @@
                 <label for="edit-entry-description" class="col-sm-3 control-label">Description</label>
                 <div class="col-sm-9">
                   <textarea class="form-control" id="edit-entry-password-description" placeholder="Entry Description"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-entry-username" class="col-sm-3 control-label">Username</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="edit-entry-password-username" placeholder="Username / Login Name" />
                 </div>
               </div>
 
