@@ -1,0 +1,34 @@
+<dom-module id="app-icon">
+  <style>
+    :host {
+      background-color: #eee;
+      color: white;
+      font-size: 24px;
+      border-radius: 18px;
+      text-shadow: 2px 2px 0 #ccc;
+    }
+  </style>
+  <template>
+    <i class="fa fa-lock"></i>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is : 'app-icon',
+
+    properties : {
+      size : {
+        type : Number,
+        value : 24,
+        observer : 'sizeObserver'
+      }
+    },
+
+    sizeObserver : function() {
+      this.style.fontSize = this.size+'px';
+      this.style.padding = (this.size/4)+'px '+(this.size/2)+'px';
+      this.style.borderRadius = this.size+'px';
+    }
+  })
+</script>

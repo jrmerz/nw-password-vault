@@ -1,10 +1,10 @@
 {
   "name": "Password Vault",
   "description": "A node webkit password vault",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.html",
   "window": {
-    "icon": "icon.png",
+    "icon": "icons/pwvault.png",
     "toolbar": false,
     "width": 900,
     "height": 700

@@ -18,7 +18,8 @@
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-copy-to": "0.0.12",
     "grunt-filerev": "^2.3.1",
-    "grunt-usemin": "^3.0.0"
+    "grunt-usemin": "^3.0.0",
+    "nw-builder": "^2.0.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
