@@ -1,0 +1,104 @@
+<dom-module id="app-create-new">
+  <template>
+    <h4 class="page-header">Create New Vault</h4>
+
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label for="new-password" class="col-sm-3 control-label">Vault Location</label>
+        <div class="col-sm-7">
+          <input type="file" class="form-control" id="new-location" placeholder="File Location" webkitdirectory>
+          <div class="help-text">Select where the vault should be stored</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="new-password" class="col-sm-3 control-label">Vault Name</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" id="new-filename" placeholder="File Name" value="pass.vault">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="new-password" class="col-sm-3 control-label">Password</label>
+        <div class="col-sm-7">
+          <input type="password" class="form-control" id="new-password" placeholder="Vault Password">
+          <div class="help-text">Password used to encrypt your vault</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="new-password-verify" class="col-sm-3 control-label">Verify Password</label>
+        <div class="col-sm-7">
+          <input type="password" class="form-control" id="new-password-verify" placeholder="Vault Password">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-7">
+          <button class="btn btn-primary" on-click="create"><i class="fa fa-plus"></i> Create Vault</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="new-message"></div>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is : 'app-create-new',
+
+    create : function() {
+      var info = {
+        location : this.$['new-location'].val(),
+        password : this.$['new-password'].val(),
+        passwordVerify : this.$['new-password-verify'].val()
+      };
+
+      if( info.location.length === 0 ) {
+        return this.error('You must provide a location for the vault.');
+      }
+      if( info.password !== info.passwordVerify ) {
+        return this.error('Your passwords do not match.');
+      }
+      if( info.password.length < 8 ) {
+        return this.error('Your password is less than 8 characters.');
+      }
+
+      info.location = info.location+'/pass.vault';
+      this.success();
+
+      var empty = {
+        items : []
+      };
+
+      Vault.crypto.setPassword(info.password);
+      var data = Vault.crypto.encrypt(JSON.stringify(empty));
+      NODE.fs.writeFileSync(info.location, data);
+
+      Vault.active = {
+        location : info.location,
+        password : info.password
+      };
+
+      Vault.settings.addVault(info.location);
+
+      this.$['new-location'].val('');
+      this.$['new-password'].val('');
+      this.$['new-password-verify'].val('');
+
+      window.location = '#use';
+    },
+
+    success : function() {
+      this.error('');
+    },
+
+    error : function(msg) {
+      if( !msg ) this.$['new-message'].html('');
+      else this.$['new-message'].html('<div class="alert alert-danger">'+msg+'</div>');
+    }
+
+  });
+</script>

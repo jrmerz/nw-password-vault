@@ -1,0 +1,233 @@
+<dom-module id="app-entry-popup">
+  <template>
+    <div class="modal fade" id="popup">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="title"></h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label for="nameInput" class="col-sm-3 control-label">Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="nameInput" placeholder="Entry Name">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="descriptionInput" class="col-sm-3 control-label">Description</label>
+                <div class="col-sm-9">
+                  <textarea class="form-control" id="descriptionInput" placeholder="Entry Description"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="usernameInput" class="col-sm-3 control-label">Username</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="usernameInput" placeholder="Username / Login Name" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="passwordInput" class="col-sm-3 control-label">Password</label>
+                <div class="col-sm-9">
+                  <app-password-input id="passwordInput"></app-password-input>
+                </div>
+              </div>
+
+              <div id="otherFieldsContainer"></div>
+            </div>
+
+            <a class="btn btn-default" on-click="addField"><i class="fa fa-plus"></i> Add Field</a>
+
+            <div id="edit-entry-message"></div>
+
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-defult pull-left" id="deleteBtn" on-click="delete"><i class="fa fa-trash"></i> Delete Entry</a>
+
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+            <button type="button" class="btn btn-primary" on-click="save"><i class="fa fa-check"></i> Save</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is : 'app-entry-popup',
+
+    ready : function() {
+      // init the popup
+      $(this.$.popup).remove();
+      document.body.append(this.$.popup);
+      $(this.$.popup).modal({
+        show: false,
+        backdrop: 'static'
+      });
+
+    },
+
+    hide : function() {
+      $(this.$.popup).modal('hide');
+    },
+
+    save : function() {
+      var hasError = this.verify();
+      if( hasError ) return;
+
+      var entry = this.getEntry();
+      this.onSave({
+        entry: entry,
+        originalName : editName,
+        isNew : isNew
+      });
+    },
+
+    delete : function() {
+      if( !confirm('Are you sure you want to completely remove: '+this.editName+'?') ) {
+        return;
+      }
+
+      this.onSave({
+        name : this.editName,
+        remove : true
+      });
+    },
+
+    add : function() {
+      this.reset();
+      this.$.deleteBtn.style.display = 'none';
+
+      this.otherCount = 0;
+      this.isNew = true;
+      this.$.title.innerHTML = 'Add Entry';
+
+      this.show();
+    }
+
+    edit : function(entry) {
+      this.reset();
+
+      this.entry = entry;
+      this.editName = entry.name;
+      this.otherCount = 0;
+      this.isNew = false;
+
+      this.$.deleteBtn.style.display = 'block';
+      this.$.title.innerHTML = 'Edit Entry';
+
+      this.$.nameInput.value = entry.name;
+      this.$.descriptionInput.value = entry.description || '';
+      this.$.usernameInput.value = entry.username || '';
+      this.$.passwordInput.value = entry.password;
+
+      this.createOtherList();
+
+      this.show();
+    },
+
+    createOtherList : function() {
+      this.$.otherFieldsContainer.innerHTML = '';
+      if( this.entry.other ) {
+        for( var i = 0; i < this.entry.other.length; i++ ) {
+          this.addField(i, this.entry.other[i]);
+        }
+      }
+    }
+
+    addField : function(index, item) {
+      var input = document.createElement('app-other-input');
+      input.value = item;
+      input.index = index;
+
+      input.addEventListener('delete', function(e){
+        this.entry.other.splice(1, [e.detail.index]);
+        this.createOtherList();
+      }.bind(this));
+
+      $(this.$.otherFieldsContainer).append(input);
+      this.otherCount++;
+    },
+
+    verify : function() {
+      var errors = [], i;
+      errors.push(this.verifyItem());
+
+      var otherInputs = this.querySelectorAll('app-other-input');
+      for( var i = 0; i < otherInputs.length; i++ ) {
+        errors.push(otherInputs.validate());
+      }
+
+      for( i = 0; i < errors.length; i++ ) {
+        if( errors[i] ) return true;
+      }
+
+      return false;
+    },
+
+    getEntry : function() {
+      var entry = {
+        name : this.$.nameInput.value,
+        description : this.$.descriptionInput.value,
+        username : this.$.usernameInput.value,
+        password : this.$.passwordInput.value,
+        other : []
+      };
+
+      var otherInputs = this.querySelectorAll('app-other-input');
+      for( var i = 0; i < otherInputs.length; i++ ) {
+        entry.other.push(otherInputs[i].value);
+      }
+
+      return entry;
+    },
+
+    verifyItem : function() {
+      var item = getEntry();
+
+      if( item.name === undefined || item.pass === undefined ) {
+        return false; // item has been deleted
+      }
+
+      if( item.password.length === 0 ) {
+        error(msg, 'You did not provide a password');
+        return true;
+      } else if( !this.$.passwordInput.valid() ) {
+        error(msg, 'Your passwords do not match');
+        return true;
+      } else if( item.name.length === 0 ) {
+        error(msg, 'You must provide a name');
+        return true;
+      }
+
+      msg.html('<span class="text text-success"><i class="fa fa-check"></i></span>');
+
+      return false;
+    },
+
+    error : function(ele, msg) {
+      ele.html('<div class="alert alert-danger">'+msg+'</div>');
+    },
+
+    reset : function() {
+      $('#edit-entry-password-name').val('');
+      $('#edit-entry-password-description').val('');
+      $('#edit-entry-password-username').val('');
+      $('#edit-entry-password').val('');
+      $('#edit-entry-password-verify').val('');
+      $('#edit-entry-other-fields').html('');
+      $('#edit-entry-password-msg').html('');
+    },
+
+    show : function() {
+      $(this.$.popup).modal('show');
+    }
+
+  });
+</script>

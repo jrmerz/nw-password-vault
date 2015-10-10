@@ -24,61 +24,28 @@
   <body>
 
     <ul class="nav nav-tabs nav-justified" role="tablist">
-      <li role="presentation" class="active"><a href="#use" aria-controls="home" role="tab">Use</a></li>
-      <li role="presentation"><a href="#manage" aria-controls="home" role="tab">Manage</a></li>
+      <li role="presentation" class="active"><a href="#use" aria-controls="home" role="tab"><i class="fa fa-unlock"></i> Access</a></li>
+      <li role="presentation"><a href="#manage" aria-controls="home" role="tab"><i class="fa fa-cogs"></i> Manage</a></li>
     </ul>
-    
+
     <div id="manage" class="page">
-      <h4 class="page-header">Create New Vault</h4>
 
-      <div class="form-horizontal">
-        <div class="form-group">
-          <label for="new-password" class="col-sm-3 control-label">Vault Location</label>
-          <div class="col-sm-7">
-            <input type="file" class="form-control" id="new-location" placeholder="File Location" webkitdirectory>
-            <div class="help-text">Select where the vault should be stored</div>
-          </div>
+      <div class="layout horizontal">
+        <div>
+          <ul class="list-group" style="min-width: 250px;margin-top: 40px">
+            <li class="list-group-item"><a href="#manage/create">Create</a></li>
+            <li class="list-group-item"><a href="#manage/import">Import</a></li>
+          </ul>
         </div>
-
-        <div class="form-group">
-          <label for="new-password" class="col-sm-3 control-label">Vault Name</label>
-          <div class="col-sm-7">
-            <input type="text" class="form-control" id="new-filename" placeholder="File Name" value="pass.vault">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="new-password" class="col-sm-3 control-label">Password</label>
-          <div class="col-sm-7">
-            <input type="password" class="form-control" id="new-password" placeholder="Vault Password">
-            <div class="help-text">Password used to encrypt your vault</div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="new-password-verify" class="col-sm-3 control-label">Verify Password</label>
-          <div class="col-sm-7">
-            <input type="password" class="form-control" id="new-password-verify" placeholder="Vault Password">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-sm-3 control-label"></label>
-          <div class="col-sm-7">
-            <button id="create-btn" class="btn btn-primary"><i class="fa fa-plus"></i> Create Vault</button>
-          </div>
+        <div class="flex" style="padding: 10px 15px 10px 25px">
+          <app-create-new class="edit-element"></app-create-new>
+          <app-import-vault class="edit-element"></app-import-vault>
         </div>
       </div>
-
-      <div id="new-message"></div>
-
-
-      <app-import-vault></app-import-vault>
 
     </div>
 
     <div id="use" class="page">
-      <h4 class="page-header">Access Vault</h4>
 
       <div class="form-horizontal">
         <div class="form-group">
@@ -145,62 +112,7 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <div class="modal fade" id="edit-entry-popup">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="edit-entry-popup-title"></h4>
-          </div>
-          <div class="modal-body">
-
-            <div class="form-horizontal">
-              <div class="form-group">
-                <label for="edit-entry-password-name" class="col-sm-3 control-label">Name</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" id="edit-entry-password-name" placeholder="Entry Name">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="edit-entry-description" class="col-sm-3 control-label">Description</label>
-                <div class="col-sm-9">
-                  <textarea class="form-control" id="edit-entry-password-description" placeholder="Entry Description"></textarea>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="edit-entry-username" class="col-sm-3 control-label">Username</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" id="edit-entry-password-username" placeholder="Username / Login Name" />
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="edit-entry-password" class="col-sm-3 control-label">Password</label>
-                <div class="col-sm-9">
-                  <input type="password" class="form-control" id="edit-entry-password" placeholder="Password">
-                  <input type="password" class="form-control" id="edit-entry-password-verify" placeholder="Verify Password">
-                  <div id="edit-entry-password-msg"></div>
-                </div>
-              </div>
-
-              <div id="edit-entry-other-fields"></div>
-            </div>
-
-            <a class="btn btn-default" id="edit-entry-add-field-btn"><i class="fa fa-plus"></i> Add Field</a>
-            <a class="btn btn-danger" id="edit-entry-delete-btn"><i class="fa fa-trash"></i> Delete Entry</a>
-
-            <div id="edit-entry-message"></div>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-            <button type="button" class="btn btn-primary" id="edit-entry-save-btn"><i class="fa fa-check"></i> Save</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    
 
     <div id="toast" class="animated fadeInUp" style="display:none;position:fixed; left: 15px; bottom: 15px"></div>
 

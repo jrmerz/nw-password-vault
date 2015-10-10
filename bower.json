@@ -16,6 +16,7 @@
     "animate.css": "~3.4.0",
     "bootswatch-dist": "paper",
     "font-awesome": "~4.4.0",
-    "polymer": "~1.1.3"
+    "polymer": "~1.1.3",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.0.4"
   }
 }
