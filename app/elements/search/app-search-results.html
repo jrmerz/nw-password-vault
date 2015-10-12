@@ -1,0 +1,55 @@
+<dom-module id="app-search-result">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 10px;
+        margin: 10px;
+        box-shadow: 0 0 5px #888;
+      }
+    </style>
+
+    <h4 class="page-header">
+      <span>{{title}}</span>
+      <a on-click="edit" class="btn btn-link pull-right"><i class="fa fa-edit"></i></a>
+    </h4>
+    <div>{{description}}</div>
+    <div class="tableRoot"></div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'app-search-result',
+
+      render : function(item) {
+        var html = '<table class="table">';
+        if( item.username ) {
+          html += '<tr>'+
+            '<td style="width:65%">Username</td>'+
+            '<td>'+
+              item.username +
+            '</td>'+
+          '</tr>';
+        }
+
+        for( var i = 0; i < item.other.length; i++ ) {
+          var other = item.other;
+
+          html +=
+            '<tr>'+
+              '<td style="width:65%">'+(key === 'password' ? 'Password' : key)+'</td>'+
+              '<td>'+
+                '<a class="btn btn-link" name="Copy" index="'+current.length+'-'+row.length+'"><i class="fa fa-copy"></i></a>'+
+                '<a class="btn btn-link" name="Show" index="'+current.length+'-'+row.length+'"><i class="fa fa-eye"></i></a>'+
+                '<input type="text" class="form-control showPass" style="display:none" index="'+current.length+'-'+row.length+'" />'+
+              '</td>'+
+            '</tr>';
+          row.push(item[key]);
+        }
+
+        current.push(row);
+        html += '</table>';
+      }
+    });
+  </script>
+</dom-module>

@@ -43,7 +43,7 @@
 
             <a class="btn btn-default" on-click="addField"><i class="fa fa-plus"></i> Add Field</a>
 
-            <div id="edit-entry-message"></div>
+            <div id="message"></div>
 
           </div>
           <div class="modal-footer">
@@ -139,7 +139,7 @@
           this.addField(i, this.entry.other[i]);
         }
       }
-    }
+    },
 
     addField : function(index, item) {
       var input = document.createElement('app-other-input');
@@ -196,17 +196,17 @@
       }
 
       if( item.password.length === 0 ) {
-        error(msg, 'You did not provide a password');
+        this.error(this.msg, 'You did not provide a password');
         return true;
       } else if( !this.$.passwordInput.valid() ) {
-        error(msg, 'Your passwords do not match');
+        this.error(this.msg, 'Your passwords do not match');
         return true;
-      } else if( item.name.length === 0 ) {
-        error(msg, 'You must provide a name');
+      } else if( this.item.name.length === 0 ) {
+        this.error(this.msg, 'You must provide a name');
         return true;
       }
 
-      msg.html('<span class="text text-success"><i class="fa fa-check"></i></span>');
+      this.msg.html('<span class="text text-success"><i class="fa fa-check"></i></span>');
 
       return false;
     },
@@ -216,13 +216,12 @@
     },
 
     reset : function() {
-      $('#edit-entry-password-name').val('');
-      $('#edit-entry-password-description').val('');
-      $('#edit-entry-password-username').val('');
-      $('#edit-entry-password').val('');
-      $('#edit-entry-password-verify').val('');
-      $('#edit-entry-other-fields').html('');
-      $('#edit-entry-password-msg').html('');
+      this.$.nameInput.value = '';
+      this.$.descriptionInput.value = '';
+      this.$.usernameInput.value = '';
+      this.$.passwordInput.value = '';
+      this.$.otherFieldsContainer.innerHTML = '';
+      this.$.message.innerHTML = '';
     },
 
     show : function() {
