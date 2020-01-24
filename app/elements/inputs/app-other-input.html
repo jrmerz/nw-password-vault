@@ -26,12 +26,12 @@
       this.item = {};
     },
 
-    get value : function(val) {
+    set value(val) {
       this.item = value;
       this.update();
     },
 
-    set value : function() {
+    get value() {
       return this.item;
     },
 

@@ -4,32 +4,32 @@
 
     <div class="form-horizontal">
       <div class="form-group">
-        <label for="new-password" class="col-sm-3 control-label">Vault Location</label>
+        <label for="newLocation" class="col-sm-3 control-label">Vault Location</label>
         <div class="col-sm-7">
-          <input type="file" class="form-control" id="new-location" placeholder="File Location" webkitdirectory>
+          <input type="file" class="form-control" id="newLocation" placeholder="File Location" webkitdirectory>
           <div class="help-text">Select where the vault should be stored</div>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="new-password" class="col-sm-3 control-label">Vault Name</label>
+        <label for="newFilename" class="col-sm-3 control-label">Vault Name</label>
         <div class="col-sm-7">
-          <input type="text" class="form-control" id="new-filename" placeholder="File Name" value="pass.vault">
+          <input type="text" class="form-control" id="newFilename" placeholder="File Name" value="pass.vault">
         </div>
       </div>
 
       <div class="form-group">
-        <label for="new-password" class="col-sm-3 control-label">Password</label>
+        <label for="newPassword" class="col-sm-3 control-label">Password</label>
         <div class="col-sm-7">
-          <input type="password" class="form-control" id="new-password" placeholder="Vault Password">
+          <input type="password" class="form-control" id="newPassword" placeholder="Vault Password">
           <div class="help-text">Password used to encrypt your vault</div>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="new-password-verify" class="col-sm-3 control-label">Verify Password</label>
+        <label for="newPasswordVerify" class="col-sm-3 control-label">Verify Password</label>
         <div class="col-sm-7">
-          <input type="password" class="form-control" id="new-password-verify" placeholder="Vault Password">
+          <input type="password" class="form-control" id="newPasswordVerify" placeholder="Vault Password">
         </div>
       </div>
 
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <div id="new-message"></div>
+    <div id="newMessage"></div>
   </template>
 </dom-module>
 
@@ -51,9 +51,9 @@
 
     create : function() {
       var info = {
-        location : this.$['new-location'].val(),
-        password : this.$['new-password'].val(),
-        passwordVerify : this.$['new-password-verify'].val()
+        location : this.$.newLocation.value,
+        password : this.$.newPassword.value,
+        passwordVerify : this.$.newPasswordVerify.value
       };
 
       if( info.location.length === 0 ) {
@@ -84,9 +84,9 @@
 
       Vault.settings.addVault(info.location);
 
-      this.$['new-location'].val('');
-      this.$['new-password'].val('');
-      this.$['new-password-verify'].val('');
+      this.$.newLocation.value;
+      this.$.newPassword.value;
+      this.$.newPasswordVerify.value;
 
       window.location = '#use';
     },
@@ -96,8 +96,8 @@
     },
 
     error : function(msg) {
-      if( !msg ) this.$['new-message'].html('');
-      else this.$['new-message'].html('<div class="alert alert-danger">'+msg+'</div>');
+      if( !msg ) this.$.newMessage.innerHTML = '';
+      else this.$.newMessage.innerHTML = '<div class="alert alert-danger">'+msg+'</div>';
     }
 
   });

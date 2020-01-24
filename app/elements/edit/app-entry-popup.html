@@ -65,7 +65,7 @@
     ready : function() {
       // init the popup
       $(this.$.popup).remove();
-      document.body.append(this.$.popup);
+      document.body.appendChild(this.$.popup);
       $(this.$.popup).modal({
         show: false,
         backdrop: 'static'
@@ -109,7 +109,7 @@
       this.$.title.innerHTML = 'Add Entry';
 
       this.show();
-    }
+    },
 
     edit : function(entry) {
       this.reset();
