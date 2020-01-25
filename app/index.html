@@ -1,102 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>Password Vault</title>
-
-    <link rel="stylesheet" href="bower_components/bootswatch-dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
-
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootswatch-dist/js/bootstrap.js"></script>
-
-    <script src="js/node_modules.js"></script>
-    <script src="js/lib.js"></script>
-
-    <link rel="import" href="require.html" />
-
-    <style>
-      .page {
-        padding: 15px;
-      }
-    </style>
   </head>
   <body>
 
-    <ul class="nav nav-tabs nav-justified" role="tablist">
-      <li role="presentation" class="active"><a href="#use" aria-controls="home" role="tab"><i class="fa fa-unlock"></i> Access</a></li>
-      <li role="presentation"><a href="#manage" aria-controls="home" role="tab"><i class="fa fa-cogs"></i> Manage</a></li>
-    </ul>
+    <password-vault-app></password-vault-app>
 
-    <div id="manage" class="page">
-
-      <div class="layout horizontal">
-        <div>
-          <ul class="list-group" style="min-width: 250px;margin-top: 40px">
-            <li class="list-group-item"><a href="#manage/create">Create</a></li>
-            <li class="list-group-item"><a href="#manage/import">Import</a></li>
-          </ul>
-        </div>
-        <div class="flex" style="padding: 10px 15px 10px 25px">
-          <app-create-new class="edit-element"></app-create-new>
-          <app-import-vault class="edit-element"></app-import-vault>
-        </div>
-      </div>
-
-    </div>
-
-    <div id="use" class="page">
-
-      <div class="form-horizontal">
-        <div class="form-group">
-          <label for="vault-select" class="col-sm-3 control-label">Select Vault</label>
-          <div class="col-sm-7">
-            <select id="vault-select" class="form-control"></select>
-            <button id="unlock-show-btn" class="btn btn-warning" style="margin-top: 10px"><i class="fa fa-unlock-alt"></i> Unlock</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="modal fade" id="unlock-popup">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Unlock Vault</h4>
-          </div>
-          <div class="modal-body">
-
-            <div class="form-horizontal">
-              <div class="form-group">
-                <label class="col-sm-2 control-label">File</label>
-                <div class="col-sm-10" id="unlock-popup-filename"></div>
-              </div>
-
-              <div class="form-group">
-                <label for="unlock-popup-password" class="col-sm-2 control-label">Password</label>
-                <div class="col-sm-10">
-                  <input type="password" class="form-control" id="unlock-popup-password" placeholder="Vault Password">
-                  <div class="help-text">Password used to encrypt your vault</div>
-                </div>
-              </div>
-            </div>
-
-            <div id="vault-popup-message"></div>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-warning" id="unlock-btn"><i class="fa fa-unlock-alt"></i> Unlock</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <app-entry-popup></app-entry-popup>
-
-    <div id="toast" class="animated fadeInUp" style="display:none;position:fixed; left: 15px; bottom: 15px"></div>
-
+    <script>
+      // You can also require other files to run in this process
+      require('./bundle.js')
+    </script>
   </body>
 </html>
